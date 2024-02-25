@@ -5,15 +5,13 @@ const PurchaseRequest = () => {
   const [purchaseRequests, setPurchaseRequests] = useState([]);
 
   useEffect(() => {
-    // Fetch data from the server or use static data
-    // Replace the following with your actual API call or static data
+    
     const fetchData = async () => {
       try {
-        // const response = await fetch('your-api-endpoint');
-        // const data = await response.json();
+       
         const staticData = [
-          { reqID: 1, DpID: 1, userID: 1, typeID: 1, urgencyID: 1 },
-          { reqID: 2, DpID: 2, userID: 2, typeID: 2, urgencyID: 2 },
+          { reqID: 1, itemName:"Laptop", userID: 1, urgency: "high" , quantity: 2},
+          { reqID: 2, itemName: "Printer", userID: 2, urgency: "low", quantity: 1 },
           // Add more purchase request data as needed
         ];
         setPurchaseRequests(staticData);
@@ -28,24 +26,24 @@ const PurchaseRequest = () => {
   return (
     <div>
       <h2>Purchase Request Table</h2>
-      <table>
+      <table  class="table table-bordered">
         <thead>
           <tr>
             <th>Request ID</th>
-            <th>Department ID</th>
+            <th>Item Name</th>
             <th>User ID</th>
-            <th>Type ID</th>
-            <th>Urgency ID</th>
+            <th>Urgency</th>
+            <th>Quantity</th>
           </tr>
         </thead>
         <tbody>
           {purchaseRequests.map((purchaseRequest) => (
             <tr key={purchaseRequest.reqID}>
               <td>{purchaseRequest.reqID}</td>
-              <td>{purchaseRequest.DpID}</td>
+              <td>{purchaseRequest.itemName}</td>
               <td>{purchaseRequest.userID}</td>
-              <td>{purchaseRequest.typeID}</td>
-              <td>{purchaseRequest.urgencyID}</td>
+              <td>{purchaseRequest.urgency}</td>
+              <td>{purchaseRequest.quantity}</td>
             </tr>
           ))}
         </tbody>
