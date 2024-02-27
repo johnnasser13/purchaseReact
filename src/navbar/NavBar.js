@@ -16,7 +16,7 @@ const NavBar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={NavLink} to="/" className={styles.navLink}>
+              <Nav.Link as={NavLink} to="/home" className={styles.navLink}>
               New Purchase Request
               </Nav.Link>
               

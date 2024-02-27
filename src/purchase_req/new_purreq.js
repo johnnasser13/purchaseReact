@@ -1,11 +1,10 @@
 
 import React, { useState } from 'react';
-import { Util } from 'reactstrap';
+import axios from "axios";
 
 
-Util.setGlobalCssModule({
-  btn: 'hyperspeed-btn',
-});
+  
+
 
 
 
