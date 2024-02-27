@@ -5,35 +5,34 @@ import axios from "axios";
 
   
 
-
-
-
 const NewPurchaseRequestForm = () => {
   const [formData, setFormData] = useState({
+    reqID:'',
     itemName: '',
-    userID: '',
-    
-    urgency: '',
-    
+    urgencyLevel: '',
     quantity:'',
   });
 
-  
+  const { reqID, itemName, urgencyLevel, quantity } = formData;
+  const [data, setData] = useState([]);
+   
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your logic to handle the form submission (e.g., API call or state update)
-    console.log('Form submitted:', formData);
-    // Reset the form after submission if needed
-    setFormData({
-      itemName: '',
-      userID: '',
-      
-      urgency: '',
-      
-      quantity: '',
-    });
-  };
+    if (reqID && itemName && urgencyLevel && quantity) {
+        axios.post('http://127.0.0.1:8000/postpurchasereq/', formData)
+            .then(res => {
+                setData([...data, res.data]);
+                setFormData({ reqID: "", itemName: "", urgencyLevel: "", quantity: "" });
+
+            })
+            .catch(err => console.log(err))
+
+    }
+};
+
+  
 
   return (
     <><div class="col-auto">
@@ -70,22 +69,31 @@ const NewPurchaseRequestForm = () => {
             <option>Low</option>
           </select>
         </div>
-
-
-
-        <div class="col-md-4">
-          <label for="inputState" class="form-label">Item List</label>
-          <select id="inputState" class="form-select">
-            <option selected>Choose...</option>
-            <option>Laptops</option>
-            <option>Cameras</option>
-          </select>
-        </div>
-
-        <div class="col-auto">
-          <input text="search"></input>
-          <button type="submit" class="btn btn-primary">Search</button>
-        </div>
+       
+      <table class="table">
+        <thead>
+        <tr>
+           <th scope="col">#</th>
+           <th scope="col">Item Name</th>
+           <th scope="col">Quantity</th>
+           <th scope="col">Note</th>
+           <th scope="col">Actions</th>
+        </tr>
+        </thead>
+      <tbody>
+         <tr >
+           <th scope="row"></th>
+           <td><input></input></td>
+           <td><input></input></td>
+           <td><input></input></td>
+           <td>
+           <button>Delete</button>
+           </td>
+         </tr>
+      </tbody>
+      </table>
+     
+      <button type="submit" class="btn btn-primary">Submit</button>
 
       </form>
     </div>
@@ -94,39 +102,7 @@ const NewPurchaseRequestForm = () => {
     <br/>
     <br/>
 
-    <div class="col-auto">
-
-    <h3>Selected Items</h3>
-      <br />
-      
-        <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Item Code</th>
-      <th scope="col">Item Name</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Note</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr >
-      <th scope="row"></th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><input></input></td>
-      <td>
-      <button>Delete</button>
-      </td>
-    </tr>
-    
-  </tbody>
-  </table>
-
-<button type="submit" class="btn btn-primary">Submit</button>
-      </div></>
+    </>
 
   );
 
