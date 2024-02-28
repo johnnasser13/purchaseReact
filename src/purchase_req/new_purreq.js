@@ -2,34 +2,54 @@
 import React, { useState } from 'react';
 import axios from "axios";
 
-
-  
-
 const NewPurchaseRequestForm = () => {
+
   const [formData, setFormData] = useState({
-    reqID:'',
+    
     itemName: '',
     urgencyLevel: '',
     quantity:'',
+    DpName:'',
+    typeStatus:'',
+
   });
 
-  const { reqID, itemName, urgencyLevel, quantity } = formData;
+  //const [editID, setEditID] = useState()
+
   const [data, setData] = useState([]);
-   
+ // const [refresh, setRefresh] = useState(0)
+
+
+  const {  itemName, urgencyLevel, quantity } = formData;
+ 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (reqID && itemName && urgencyLevel && quantity) {
+    if ( itemName && urgencyLevel && quantity ) {
         axios.post('http://127.0.0.1:8000/postpurchasereq/', formData)
             .then(res => {
                 setData([...data, res.data]);
-                setFormData({ reqID: "", itemName: "", urgencyLevel: "", quantity: "" });
+                setFormData({ itemName: "", urgencyLevel: "", quantity: "" });
 
             })
             .catch(err => console.log(err))
 
     }
+};
+
+const handleDelete = (deleteID) => {
+  axios.delete(`http://127.0.0.1:8000/deletepurchasereq/${deleteID}`)
+  .then(res => {
+     console.log('DELETD RECORD::::', res)
+
+  })
+  .catch(err => console.log(err))
 };
 
   
@@ -73,27 +93,40 @@ const NewPurchaseRequestForm = () => {
       <table class="table">
         <thead>
         <tr>
-           <th scope="col">#</th>
+          <th></th>
            <th scope="col">Item Name</th>
            <th scope="col">Quantity</th>
-           <th scope="col">Note</th>
            <th scope="col">Actions</th>
         </tr>
         </thead>
       <tbody>
          <tr >
            <th scope="row"></th>
-           <td><input></input></td>
-           <td><input></input></td>
-           <td><input></input></td>
            <td>
-           <button>Delete</button>
-           </td>
+            <input type="text"
+            className="form-control"
+             id="itemName"
+             placeholder="Enter Item Name"
+             name="itemName"
+             value={itemName}
+             onChange={handleChange}   />
+             </td>
+             
+           <td><input type="text"
+            className="form-control"
+             id="quantity"
+             placeholder="Enter Quantity"
+             name="quantity"
+             value={quantity}
+             onChange={handleChange}   /></td>
+             
+           
+           <td> <button className="btn btn-danger" onClick={() => handleDelete(itemName)}>Delete</button> </td>
          </tr>
       </tbody>
       </table>
      
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" onClick={() => handleSubmit()}>Submit</button>
 
       </form>
     </div>

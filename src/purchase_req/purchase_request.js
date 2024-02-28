@@ -4,41 +4,21 @@ import axios from "axios";
 
 
 const PurchaseRequest = () => {
-  const [editID, setEditID] = useState()
-  const [refresh, setRefresh] = useState(0)
-  const [formData, setFormData] = useState({
-    reqID:'',
-    itemName: '',
-    urgencyLevel: '',
-    quantity:'',
-  });
-  const { reqID, itemName, urgencyLevel, quantity } = formData;
-  const [purchaseRequests, setPurchaseRequests] = useState([]);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-};
+  
+  const [data, setData] = useState([]);
+  //const [refresh, setRefresh] = useState(0)
 
-const handleUpdate = () => {
-  if (reqID && itemName && urgencyLevel && quantity) {
-      axios.put(`http://127.0.0.1:8000/postpurchasereq/${editID}`, formData)
-          .then(res => {
-              setFormData({ reqID: "", itemName: "", urgencyLevel: "", quantity: ""  });
-              setRefresh(refresh + 1)
-          })
-          .catch(err => console.log(err))
-
-  }
-};
-
+ 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/getpurchasereq/')
         .then(res => {
-          setPurchaseRequests(res.purchaseRequests)
+          setData(res.data)
+          
         })
         .catch(err => console.log(err))
-    console.log(purchaseRequests);
-}, [purchaseRequests]);
+        console.log(data);
+}, [data]);
 
 
 
@@ -56,12 +36,12 @@ const handleUpdate = () => {
           </tr>
         </thead>
         <tbody>
-          {purchaseRequests.map((purchaseRequest,index) => (
+          {data.map((PurchaseRequest,index) => (
             <tr key={index}>
-              <td>{purchaseRequest.reqID}</td>
-              <td>{purchaseRequest.itemName}</td>
-              <td>{purchaseRequest.urgencyLevel}</td>
-              <td>{purchaseRequest.quantity}</td>
+              <td>{PurchaseRequest.reqID}</td>
+              <td>{PurchaseRequest.itemName}</td>
+              <td>{PurchaseRequest.urgencyLevel}</td>
+              <td>{PurchaseRequest.quantity}</td>
             </tr>
           ))}
         </tbody>
