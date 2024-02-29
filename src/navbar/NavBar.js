@@ -8,7 +8,7 @@ import styles from './NavBar.module.css';
 const NavBar = () => {
     return (
       <Navbar bg="light" expand="lg" className={styles.navbar}>
-        <Container className={styles.navbarContainer } class="dropdown">
+        <Container className={styles.navbarContainer } >
         
 
 

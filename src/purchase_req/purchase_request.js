@@ -11,7 +11,7 @@ const PurchaseRequest = () => {
 
  
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/getpurchasereq/')
+    axios.get('getpurchasereq/')
         .then(res => {
           setData(res.data)
           
@@ -26,7 +26,7 @@ const PurchaseRequest = () => {
     
     <div>
       <h2>Purchase Request Table</h2>
-      <table  class="table table-bordered">
+      <table  className="table table-bordered">
         <thead>
           <tr>
             <th>Request ID</th>
