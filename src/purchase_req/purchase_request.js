@@ -5,19 +5,37 @@ import axios from "axios";
 
 const PurchaseRequest = () => {
 
+  let axiosCon = {
+    headers: {
+      Access_Control_Allow_Origin: '*',
+      Access_Control_Allow_Credentials : true,
+      Access_Control_Allow_Methods: "GET,HEAD,OPTIONS,POST,PUT,DELETE",
+      Access_Control_Allow_Headers: "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+      
+        },
+  };
   
   const [data, setData] = useState([]);
   //const [refresh, setRefresh] = useState(0)
 
  function listpur(){
-  if (data.length>0) return;
-    axios.get('getpurchasereq/')
-  .then(res => {
+   if (data.length>0) return;
+    axios({
+      method: "GET",
+      url: "http://127.0.0.1:8000/api/purchaserequest/",    
+    ...axiosCon,
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",}
+    })
+  .then((res) => {
     setData(res.data)
     
   })
-  .catch(err => console.log(err.response.data))
-  console.log(data);
+  .catch((err) => {
+    console.log(err.res.data)
+  })
   }
 
 
@@ -40,7 +58,7 @@ const PurchaseRequest = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((PurchaseRequest,index) => (
+          {data && data.map((PurchaseRequest,index) => (
             <tr key={index}>
               <td>{PurchaseRequest.reqID}</td>
               <td>{PurchaseRequest.itemName}</td>

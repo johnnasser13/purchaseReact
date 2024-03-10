@@ -5,16 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 
-// const cors = require("cors");
-// 
-// const express = require("express");
-// const app = express();
-// app.use(cors({
-  // origin: "http://localhost:3000",
-  // credentials: true
-// }));
-// 
-// app.use(express.json());
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

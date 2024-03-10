@@ -42,15 +42,17 @@ const NewPurchaseRequestForm = () => {
     // }) 
     Axios({
       method: "POST",
-      url: "http://localhost:8000/purchasereqnew/",
+      url: "http://127.0.0.1:8000/api/purchaserequest/",
       ...axiosCon,
-      // headers: {
-      //   "Content-Type": "application/json",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        
       //   "Access-Control-Allow-Origin": '*',
       //   "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
       //   "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
       //   "Access-Control-Allow-Credentials": true,
-      // },
+       },
       
       data:{
        
@@ -59,7 +61,7 @@ const NewPurchaseRequestForm = () => {
         quantity: quantity.formData,
        },
        
-       withCredentials: false,
+      
     })
     .then ((response) => {
       console.log(response)
